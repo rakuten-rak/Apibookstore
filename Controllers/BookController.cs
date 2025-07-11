@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Apibookstore.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    [Authorize]
+    [Route("api/books")]
+    //[Authorize]
     public class BookController : ControllerBase
     {
         //public IActionResult Index()

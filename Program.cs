@@ -42,7 +42,28 @@ builder.Services.AddSwaggerGen();
 
 //builder.Services.AddOpenApi();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
 
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -58,9 +79,14 @@ app.MapControllers();
 //    app.MapOpenApi();
 //}
 
-//app.UseHttpsRedirection();
 
-app.UseAuthorization();
+
+
+app.UseCors("AllowAngularApp");
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.MapControllers();
 
