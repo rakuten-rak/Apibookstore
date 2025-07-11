@@ -2,15 +2,20 @@
 using Apibookstore.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Apibookstore.Controllers
 {
     public class RegisterDto
     {
+     
+        [Required]
         public string Username { get; set; }
+        [Required]
         public string Password { get; set; }
-        public string Email { get; set; } // Add if you want email
+        //[Required]
+        public string Email { get; set; }
     }
 
     public class LoginDto
@@ -93,20 +98,20 @@ namespace Apibookstore.Controllers
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var tokenDescriptor = new JwtSecurityToken
             (
-                claims : claims,
-                expires:DateTime.Now.AddHours(2),
+                claims: claims,
+                expires: DateTime.Now.AddHours(2),
                 signingCredentials: creds
             );
-            // return "GeneratedTokenForUser"; // Replace with actual token generation logic
+            // return "GeneratedTokenForUser"; 
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
     }
 }
 
-   
 
-       
 
-       
 
-        
+
+
+
+
